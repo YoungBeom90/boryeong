@@ -1,18 +1,32 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Dashboard from './components/Dashboard';
 import Report from './components/Report';
 import Setting from './components/Setting';
 import { BrowserRouter, Link, Routes, Route} from 'react-router-dom';
-import axios from 'axios';
 import styled, {createGlobalStyle} from 'styled-components';
+import Fade from '@mui/material/Fade';
+import CircularProgress from '@mui/material/CircularProgress';
 
-let winHeight = window.outerHeight + 'px';
 function App() {
+  
   const link = {
     width : '120px',
     display : 'block',
     textDecoration: 'none',
   }
+
+  const progress = {
+    position : "absolute",
+    top : "50%"
+  }
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+      setTimeout(() => {
+        setLoading(false);
+      }, 1000);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -33,17 +47,18 @@ function App() {
             <Route path='/Report' element={<Report />}></Route>
             <Route path='/Setting' element={<Setting />}></Route>
           </Routes>
+          <Fade in={loading} style={progress}>
+            <CircularProgress/>
+          </Fade>
         </Contents>
       </Container>
     </BrowserRouter>
-    
   );
 }
 
 const GobalStyle = createGlobalStyle`
   body {
     margin: 0;
-    height: ${winHeight};
     color: #FFFFFF;
     background-color: #282c34;
   }
@@ -68,6 +83,5 @@ const List = styled.li`
 const Contents = styled.div`
   clear : both;
   text-align : center;
-  overflow : hidden;
 `
 export default App;

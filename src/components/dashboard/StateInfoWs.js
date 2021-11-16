@@ -9,15 +9,15 @@ function StateInfoWs(props) {
             <Header>원산 방향</Header>
             <State>
                 <Title>수압상태</Title>
-                <p>{props.press != null ? props.press : "-"}</p>
+                <p>{props.wsData.press != '' ? props.wsData.press : "-"}</p>
             </State>
             <State> 
                 <Title>밸브상태</Title>
-                <p>{props.valve != null ? props.valve : "-"}</p>
+                <p>{props.wsData.valve != '' ? props.wsData.valve : "-"}</p>
             </State>
             <State>
                 <Title>통신상태</Title>
-                <p>{props.telecom != null ? props.telecom : "-"}</p>
+                <p>{props.wsData.telecom != '' ? props.wsData.telecom : "-"}</p>
             </State>
         </Section>
     )
@@ -52,7 +52,6 @@ const State = styled.div`
 
 const Title = styled.h4`
     width: 80%;
-    height: px;
     margin-top: -20px;
     margin-left: auto;
     margin-right: auto;

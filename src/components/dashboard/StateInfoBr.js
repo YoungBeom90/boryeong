@@ -8,15 +8,15 @@ function StateInfoBr(props) {
             <Header>보령 방향</Header>
             <State>
                 <Title>수압상태</Title>  
-                <p>{props.press}</p>
+                <p>{props.brData.press != '' ? props.brData.press : "-"}</p>
             </State>
             <State> 
                 <Title>밸브상태</Title>
-                <p>{props.valve}</p>
+                <p>{props.brData.valve != '' ? props.brData.valve : "-"}</p>
             </State>
             <State>
                 <Title>통신상태</Title>
-                <p>{props.telecom}</p>
+                <p>{props.brData.telecom != '' ? props.brData.telecom : "-"}</p>
             </State>
         </Section>
     )
@@ -51,7 +51,6 @@ const State = styled.div`
 
 const Title = styled.h4`
     width: 80%;
-    height: px;
     margin-top: -20px;
     margin-left: auto;
     margin-right: auto;
