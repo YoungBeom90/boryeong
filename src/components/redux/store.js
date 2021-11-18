@@ -1,6 +1,8 @@
-import { createStore } from 'redux';
-import addReducer from './valueRangeSettings/reducer';
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import { composeWithDevTools } from 'redux-devtools-extension'
+import controlValueReducer from './valueRangeSettings/reducer';
 
-const store = createStore(addReducer);
-
+const composedEnhancer = composeWithDevTools(applyMiddleware(thunkMiddleware))
+const store = createStore(controlValueReducer, composedEnhancer);
 export default store;

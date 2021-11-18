@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function StateInfoWs(props) {
+const StateInfoWs = (props) => {
 
-    
     return (
         <Section>
             <Header>원산 방향</Header>

@@ -1,11 +1,11 @@
 import React from "react";
 import { TableBody, TableRow, TableCell, TextField, InputAdornment } from "@mui/material";
 
-function PressTableRow(props) {
+const PressTableRow = (props) => {
     return (
         <TableBody>
             <TableRow>
-                <TableCell rowSpan={2}>{props.line}라인 수압계{props.label}</TableCell>
+                <TableCell rowSpan={2}>{props.line}라인 수압계{props.id}</TableCell>
                 <TableCell>관심</TableCell>
                 <TableCell>수압계 시간대별 수압차이</TableCell>
                 <TableCell>

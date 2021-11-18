@@ -1,7 +1,7 @@
-import React, {useState, useEffect} from "react";
+import React from "react";
 import styled from 'styled-components';
 
-export default function Supply(props) {
+const Supply = (props) => {
 
     return(
         <Section>
@@ -57,3 +57,4 @@ const Title = styled.h4`
     color : #0090e3;
     background-color : #282c34;
 `
+export default Supply;

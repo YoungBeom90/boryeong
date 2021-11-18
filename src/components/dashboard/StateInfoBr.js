@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function StateInfoBr(props) {
+const StateInfoBr = (props) => {
 
     return (
         <Section>

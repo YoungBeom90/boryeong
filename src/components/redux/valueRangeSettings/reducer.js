@@ -1,18 +1,32 @@
-import { ADD } from "./types"
+import { ADD_VALUE, REMOVE_VALUE, INIT_DATA } from "./types"
 
 const initialState = {
-    count1: 1,
-    count2: 3,
-}
-const addReducer = (state=initialState, action) => {
+    data: [],
+    value : 15
+};
+
+const controlValueReducer = (state=initialState, action) => {
+
+    console.log("action ==============>>> ",action);
+
     switch (action.type) {
-        case ADD:
+        case ADD_VALUE:
             return {
                 ...state,
-                count1 : state.count1 + 1
+                value : state.value + 1
+            }
+        case REMOVE_VALUE: 
+            return {
+                ...state,
+                value : state.value - 1
+            }
+        case INIT_DATA :
+            return {
+                ...state,
+                data : action.payload
             }
         default: return state
     }
 }
 
-export default addReducer
+export default controlValueReducer

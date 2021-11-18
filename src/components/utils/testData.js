@@ -1,0 +1,23 @@
+
+export const FLOW_OBJ = [
+    {id : 1, line : "A"}, 
+    {id : 2, line : "A"},
+    {id : 3, line : "A"},
+    {id : 4, line : "A"},
+    {id : 5, line : "A"},
+    {id : 6, line : "A"},
+    {id : 7, line : "A"},
+    {id : 8, line : "A"},
+    {id : 9, line : "A"},
+    {id : 10, line : "A"},
+    {id : 1, line : "B"},
+    {id : 2, line : "B"},
+    {id : 3, line : "B"},
+    {id : 4, line : "B"},
+    {id : 5, line : "B"},
+    {id : 6, line : "B"},
+    {id : 7, line : "B"},
+    {id : 8, line : "B"},
+    {id : 9, line : "B"},
+    {id : 10, line : "B"},        
+];

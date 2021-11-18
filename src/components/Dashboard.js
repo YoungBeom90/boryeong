@@ -3,11 +3,10 @@ import StateInfoBr from './dashboard/StateInfoBr';
 import StateInfoWs from './dashboard/StateInfoWs';
 import Supply from './dashboard/Supply';
 import axios from 'axios';
-import Websocket from './utils/Websocket';
 import PressAverage from './dashboard/PressAverage';
 import WaterLevel from './dashboard/WaterLevel';
 
-function Dashboard() {
+const Dashboard = (props) => {
 
     const stateStyle = {
         marginTop : 60,
@@ -42,8 +41,8 @@ function Dashboard() {
     });
 
 
-    const requestData = async () => {
-        await axios.post("http://localhost:8083/api/meters")
+    const requestData = () => {
+        axios.get("http://localhost:8083/api/meters")
         .then(({data}) => {
             
             data.map((item) => {
@@ -71,16 +70,13 @@ function Dashboard() {
                     });
                 }
             });
+            
         });
-    }
-
+        setTimeout(requestData, 10000);
+    };
 
     useEffect(() => {
         requestData();
-        setInterval(() => {
-            requestData();
-        }, 10000);
-        console.log(brData);
     }, []);
 
     return (
