@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { TextField, InputAdornment, Button } from '@mui/material';
 import axios from 'axios';
-import { initData } from '../../redux/valueRangeSettings/actions';
+import { initFlowSetData } from '../../redux/valueRangeSettings/actions';
 import { useDispatch } from 'react-redux';
 
 
@@ -17,7 +17,7 @@ const WarningFlowValues = (props) => {
         console.log(valueInput.current.id);
         console.log(valueInput.current.value);
         
-        axios.post("http://localhost:8083/api/updateSetting",
+        axios.post("/api/updateSetting",
             {
                 "id" : valueInput.current.id, 
                 "warningVal": valueInput.current.value,
@@ -26,7 +26,7 @@ const WarningFlowValues = (props) => {
         .then( async (res) => {
             if(res) {
                 alert("설정 되었습니다.");
-                dispatch( await initData());
+                dispatch( await initFlowSetData());
             }
         })
         .catch(() => {
@@ -35,18 +35,26 @@ const WarningFlowValues = (props) => {
 
     }
 
-    return (     
-        <TextField 
-            id={props.id}
-            inputRef={valueInput}
-            defaultValue={props.value}
-            size="small"
-            variant="standard"
-            style={{width: '120px'}} 
-            InputProps={{
-                endAdornment:<InputAdornment position='end'>이상<Button onClick={()=>{updateData()}}>저장</Button></InputAdornment>
-            }} 
-        />        
+    return (    
+        <div>
+            <TextField 
+                id={props.id}
+                inputRef={valueInput}
+                defaultValue={props.value}
+                size="small"
+                variant="standard"
+                style={{width: '80px'}} 
+                InputProps={{
+                    endAdornment:<InputAdornment position='start'>이상</InputAdornment>
+                }} 
+            />
+            <Button 
+                onClick={()=>{updateData()}} 
+                variant="outlined" 
+                color="primary" 
+                style={{marginLeft: 13}}
+                >저장</Button>
+        </div> 
     )
 }
 

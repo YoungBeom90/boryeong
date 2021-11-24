@@ -1,94 +1,139 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 import StateInfoBr from './dashboard/StateInfoBr';
 import StateInfoWs from './dashboard/StateInfoWs';
 import Supply from './dashboard/Supply';
 import axios from 'axios';
 import PressAverage from './dashboard/PressAverage';
-import WaterLevel from './dashboard/WaterLevel';
+import WaterDepth from './dashboard/WaterDepth';
+import FlowAndDepth from './dashboard/FlowAndDepth';
 
 const Dashboard = (props) => {
 
-    const stateStyle = {
-        marginTop : 60,
-    }
-
-    const timeRangeStyle = {
-
-    }
-
     const [splyData, setSplyData] = useState({
-        today : '',
-        weekly : '',
-        monthly : ''
+        todaySupply : '',
+        weekSupply : '',
+        monthSupply : ''
     });
 
     const [pressData, setPressData] = useState({
-        today : '',
-        weekly : '',
-        monthly : ''
+        todayPress : '',
+        weekPress : '',
+        monthPress : ''
     });
+
+    const [depthData, setDepthData] = useState({
+        depthNow: '',
+        depth1h: '',
+        depth2h: ''
+    })
     
     const [brData, setBrData] = useState({
-        press : '',
-        valve : '',
-        telecom : ''
+        brPress : '',
+        brValve : '',
+        brTele : ''
     });
 
     const [wsData, setWsData] = useState({
-        press : '',
-        valve : '',
-        telecom : ''
+        wsPress : '',
+        wsValve : '',
+        wsTele : ''
+    });
+
+    const [cmmnData, setCmmnData] = useState({
+        flow: '',
+        level: ''
     });
 
 
     const requestData = () => {
-        axios.get("http://localhost:8083/api/meters")
+        axios.get("/api/dashBoard/main")
+        // axios.get("/api/meters")
         .then(({data}) => {
+            console.log(data);
+            if(data.statusRange) {
+                let status = data.statusRange;
             
-            data.map((item) => {
-                if(item.directionCd === "BR") {
-                    console.log(item);
-                    // setBrPress(item.press);
-                    // setBrValve(item.valve);
-                    // setBrTelecom(item.telecom);
+                setBrData({
+                    brPress : status.brPress,
+                    brValve : status.brValve,
+                    brTele : status.brTele
+                });
 
-                    setBrData({
-                        press : item.press,
-                        valve : item.valve,
-                        telecom : item.telecom   
-                    });
-                } else {
-                    console.log(item);
-                    // setWsPress(item.press);
-                    // setWsValve(item.valve);
-                    // setWsTelecom(item.telecom);
+                setWsData({
+                    wsPress : status.wsPress,
+                    wsValve : status.wsValve,
+                    wsTele : status.wsTele
+                });
 
-                    setWsData({
-                        press : item.press,
-                        valve : item.valve,
-                        telecom : item.telecom   
-                    });
-                }
-            });
-            
+
+                let timeRange = data.timeRange;
+
+                setSplyData({
+                    todaySupply : Number(timeRange.todaySupply).toLocaleString('ko-KR'),
+                    weekSupply : Number(timeRange.weekSupply).toLocaleString('ko-KR'),
+                    monthSupply : Number(timeRange.monthSupply).toLocaleString('ko-KR'),
+                });
+
+                setPressData({
+                    todayPress : timeRange.todayPress,
+                    weekPress : timeRange.weekPress,
+                    monthPress : timeRange.monthPress
+                });
+
+                setDepthData({
+                    depthNow: Number(timeRange.depthNow).toLocaleString('ko-KR'),
+                    depth1h: Number(timeRange.depth1h).toLocaleString('ko-KR'),
+                    depth2h: Number(timeRange.depth2h).toLocaleString('ko-KR')
+                });
+
+                setCmmnData({
+                    flow : status.flow,
+                    level : status.level
+                })
+            }
         });
-        setTimeout(requestData, 10000);
+        // setTimeout(requestData, 10000);
     };
 
     useEffect(() => {
         requestData();
     }, []);
 
+    const modalStyle = {
+        position: 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: '70%',
+        color: '#000',
+        bgcolor: 'background.paper',
+        border: '2px solid #000',
+        boxShadow: 24,
+        p: 4,
+    };
+
     return (
-        <div>
-            <div style={timeRangeStyle}>
-                <Supply splyData={splyData} />
-                <PressAverage pressData={pressData} />
-                <WaterLevel />
+        <div className="content-wrap">
+            <div className="container">
+                <div className="left-wrap">
+                    <Supply splyData={splyData} />
+                    <PressAverage pressData={pressData} />
+                    <WaterDepth depthData={depthData} />
+                </div>
+                <div className="right-wrap">
+                    <StateInfoBr brData={brData} modalStyle={modalStyle} />
+                    <FlowAndDepth cmmnData={cmmnData} modalStyle={modalStyle} />
+                    <StateInfoWs wsData={wsData} modalStyle={modalStyle} />
+                </div>
             </div>
-            <div style={stateStyle}>
-                <StateInfoBr brData={brData} />
-                <StateInfoWs wsData={wsData} />
+            <div className="pipeline">
+                <div className="illust-text">
+                    <ul>
+                        <li>◀ 보령</li>
+                        <li>오폐수 집수조</li>
+                        <li>원산도 ▶</li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState} from 'react';
 import { 
     Container,
     Paper, 
@@ -15,24 +15,27 @@ import {
     AccordionSummary,
     AccordionDetails
 } from '@mui/material';
-import { Box } from '@mui/system';
+import { Box, style } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PressTable from './setting/PressTable';
 import FlowTable from './setting/FlowTable';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Provider, useDispatch } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './redux/store';
-import axios from 'axios';
 
 const Setting = () => {
 
-    const dispatch = useDispatch();
-
     const darkTheme = createTheme({ palette: { background: '#0090e3'} });
 
-    const tableHead = {
-        fontWeight: 'bold',
-    }
+    const [cmmnStyle, setCmmnStyle] = useState({
+        tableHead: {
+            fontWeight: 'bold',
+            textAlign: 'center'
+        },
+        tableBody: {
+            textAlign: 'center'
+        }
+    });
 
     const [flowData, setFlowData] = useState([
         {
@@ -86,22 +89,22 @@ const Setting = () => {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <TableContainer component={Paper} sx={{bgcolor: '#FFFFFF', marginBottom: '30px'}}>
+                            <TableContainer component={Paper} sx={{bgcolor: '#FFFFFF', marginBottom: '30px', position: 'center' }}>
                                 <Table sx={{ minWidth: 650 }}>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell style={tableHead}>감시유형</TableCell>
-                                            <TableCell style={tableHead}>누수결과</TableCell>
-                                            <TableCell style={tableHead}>감시방법</TableCell>
-                                            <TableCell style={tableHead}>감시기준</TableCell>
+                                            <TableCell style={cmmnStyle.tableHead}>감시유형</TableCell>
+                                            <TableCell style={cmmnStyle.tableHead}>누수결과</TableCell>
+                                            <TableCell style={cmmnStyle.tableHead}>감시방법</TableCell>
+                                            <TableCell style={cmmnStyle.tableHead}>감시기준</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
                                         <TableRow>
-                                            <TableCell rowSpan={4}>집수조 수위</TableCell>
-                                            <TableCell rowSpan={2}>관심</TableCell>
-                                            <TableCell>현재 수위 - 1시간전 수위</TableCell>
-                                            <TableCell>
+                                            <TableCell style={cmmnStyle.tableBody} rowSpan={4}>집수조 수위</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody} rowSpan={2}>관심</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>현재 수위 - 1시간전 수위</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>
                                                 <TextField 
                                                     defaultValue="1"
                                                     size="small"
@@ -114,8 +117,8 @@ const Setting = () => {
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>현재 수위 - 2시간전 수위</TableCell>
-                                            <TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>현재 수위 - 2시간전 수위</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>
                                                 <TextField 
                                                     defaultValue="2"
                                                     size="small"
@@ -128,9 +131,9 @@ const Setting = () => {
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell rowSpan={2}>이상</TableCell>
-                                            <TableCell>현재 수위 - 1시간전 수위</TableCell>
-                                            <TableCell>
+                                            <TableCell style={cmmnStyle.tableBody} rowSpan={2}>이상</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>현재 수위 - 1시간전 수위</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>
                                                 <TextField 
                                                     defaultValue="3"
                                                     size="small"
@@ -143,8 +146,8 @@ const Setting = () => {
                                             </TableCell>
                                         </TableRow>
                                         <TableRow>
-                                            <TableCell>현재 수위 - 2시간전 수위</TableCell>
-                                            <TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>현재 수위 - 2시간전 수위</TableCell>
+                                            <TableCell style={cmmnStyle.tableBody}>
                                                 <TextField 
                                                     defaultValue="4"
                                                     size="small"
@@ -178,7 +181,7 @@ const Setting = () => {
                             </Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <PressTable />
+                            <PressTable cmmnStyle={cmmnStyle}/>
                         </AccordionDetails>
                     </Accordion>
                     <Accordion>
@@ -200,7 +203,7 @@ const Setting = () => {
                         </AccordionSummary>
                         <AccordionDetails>
                             <Provider store={store}>
-                                <FlowTable />
+                                <FlowTable cmmnStyle={cmmnStyle}/>
                             </Provider>
                         </AccordionDetails>
                     </Accordion>

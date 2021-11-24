@@ -1,13 +1,12 @@
-import { ADD_VALUE, REMOVE_VALUE, INIT_DATA } from "./types"
+import { ADD_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
 
 const initialState = {
-    data: [],
-    value : 15
+    flow : [],
+    press : [],
+    depth : []
 };
 
 const controlValueReducer = (state=initialState, action) => {
-
-    console.log("action ==============>>> ",action);
 
     switch (action.type) {
         case ADD_VALUE:
@@ -20,10 +19,16 @@ const controlValueReducer = (state=initialState, action) => {
                 ...state,
                 value : state.value - 1
             }
-        case INIT_DATA :
+        case INIT_FLOW_SET_DATA :
             return {
                 ...state,
-                data : action.payload
+                flow : action.payload
+            }
+            
+        case INIT_PRESS_SET_DATA :
+            return {
+                ...state,
+                press : action.payload
             }
         default: return state
     }

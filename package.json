@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.3.0",
     "@material-ui/icons": "^4.11.2",
     "@mui/icons-material": "^5.1.0",
+    "@mui/lab": "^5.0.0-alpha.55",
     "@mui/material": "^5.1.0",
     "@mui/styles": "^5.1.0",
     "@mui/x-data-grid": "^5.0.0-beta.7",
@@ -16,6 +17,10 @@
     "axios": "^0.24.0",
     "http": "^0.0.1-security",
     "react": "^17.0.2",
+    "react-csv": "^2.0.3",
+    "react-csv-downloader": "^2.7.0",
+    "react-date-picker": "^8.3.5",
+    "react-datepicker": "^4.3.0",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.0.2",
@@ -53,5 +58,6 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.0"
-  }
+  },
+  "proxy": "http://192.168.1.77:8080"
 }
