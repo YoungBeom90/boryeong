@@ -5,22 +5,29 @@ import { initFlowSetData } from '../../redux/valueRangeSettings/actions';
 import { useDispatch } from 'react-redux';
 
 const DangerFlowValues = (props) => {
-
     const dispatch = useDispatch();
 
     const valueInput = useRef();
+    const rowIndexRef = useRef();
 
     const updateData = () => {
 
         console.log(valueInput.current.id);
         console.log(valueInput.current.value);
+
+        let data = {
+            id : valueInput.current.id,
+            dangerVal: valueInput.current.value,
+            warningVal : props.rowData[rowIndexRef.current.id].warningVal,
+            kind: props.rowData[rowIndexRef.current.id].kind,
+            line: props.rowData[rowIndexRef.current.id].line,
+            name: props.rowData[rowIndexRef.current.id].name,
+            cretDt: props.rowData[rowIndexRef.current.id].cretDt,
+            updtDt: props.rowData[rowIndexRef.current.id].updtDt,
+            sort: props.rowData[rowIndexRef.current.id].sort,
+        }
         
-        axios.post("/api/updateSetting",
-            {
-                "id" : valueInput.current.id, 
-                "dangerVal": valueInput.current.value,
-            }
-        )
+        axios.post("/api/saveSetting", data)
         .then( async (res) => {
             if(res) {
                 alert("설정 되었습니다.");
@@ -36,9 +43,10 @@ const DangerFlowValues = (props) => {
     return (     
         <div>
             <TextField 
-                id={props.id}
                 inputRef={valueInput}
+                id={props.id}
                 defaultValue={props.value}
+                data={props.rowIndex}
                 size="small"
                 variant="standard"
                 style={{width: '80px'}} 
@@ -48,6 +56,8 @@ const DangerFlowValues = (props) => {
             /> 
             <Button 
                 onClick={()=>{updateData()}} 
+                ref={rowIndexRef}
+                id={props.rowIndex}
                 variant="outlined" 
                 color="error" 
                 style={{marginLeft: 13}}

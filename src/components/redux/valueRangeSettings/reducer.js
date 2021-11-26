@@ -1,4 +1,4 @@
-import { ADD_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
+import { UPDATE_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
 
 const initialState = {
     flow : [],
@@ -9,7 +9,7 @@ const initialState = {
 const controlValueReducer = (state=initialState, action) => {
 
     switch (action.type) {
-        case ADD_VALUE:
+        case UPDATE_VALUE:
             return {
                 ...state,
                 value : state.value + 1

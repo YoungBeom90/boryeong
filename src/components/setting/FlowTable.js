@@ -1,5 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { TableContainer, Table, TableHead, TableRow, TableCell, Paper, Button } from '@mui/material';
+import React, { useEffect } from 'react';
+import { TableContainer, Table, TableHead, TableRow, TableCell, Paper } from '@mui/material';
 import FlowTableRow from './FlowTableRow';
 import { connect } from "react-redux";
 import { initFlowSetData } from '../redux/valueRangeSettings/actions';
@@ -24,16 +24,10 @@ const FlowTable = (props) => {
 
     useEffect(() => {
         props.initFlowSetData();
-        console.log(props);
     }, []);
 
     return (
         <TableContainer component={Paper} sx={{bgcolor: '#FFFFFF', marginBottom: '30px'}}>
-            {/* <Button onClick={()=> {props.addValue(); setChangeVal(changeVal + 1);}}>관심 유량기준 + 1</Button>
-            <Button onClick={()=> {props.removeValue(); setChangeVal(changeVal - 1);}}>관심 유량기준 - 1</Button>
-            <p>[변경 값 : {changeVal}]</p>
-            <input ref={inputEl} type="text" defaultValue={text}/>
-            <button onClick={onButtonClick}>Focus the input</button> */}
             <Table sx={{ minWidth: 650 }}>
                 <TableHead>
                     <TableRow>
@@ -44,10 +38,19 @@ const FlowTable = (props) => {
                     </TableRow>
                 </TableHead>
                 {
-                    props.flow.map((item, key) => {
+                    props.flow.map((item, i) => {
                         
                         return (
-                            <FlowTableRow wValue={item.warningVal} dValue={item.dangerVal} name={item.name} id={item.id} key={key} cmmnStyle={cmmnStyle} />
+                            <FlowTableRow 
+                                rowData={props.flow} 
+                                wValue={item.warningVal} 
+                                dValue={item.dangerVal} 
+                                name={item.name} 
+                                id={item.id} 
+                                key={i}  
+                                cmmnStyle={cmmnStyle} 
+                                rowIndex={i}
+                            />
                         )    
                     })
                 }

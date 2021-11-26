@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, Paper } from '@mui/material';
 import PressTableRow from './PressTableRow';
 import { connect } from 'react-redux';
@@ -8,11 +8,8 @@ const PressTable = (props) => {
 
     const cmmnStyle = props.cmmnStyle;
 
-    const pressRef = useRef([]);
-
     useEffect(() => {
         props.initPressSetData();
-        console.log(props);
     }, []);
 
     return (
@@ -27,9 +24,18 @@ const PressTable = (props) => {
                     </TableRow>
                 </TableHead>
                 {
-                    props.press.map((item, key) => {
+                    props.press.map((item, i) => {
                         return (
-                            <PressTableRow wValue={item.warningVal} dValue={item.dangerVal} name={item.name} id={item.id} key={key} cmmnStyle={cmmnStyle} />
+                            <PressTableRow 
+                                rowData={props.press} 
+                                wValue={item.warningVal} 
+                                dValue={item.dangerVal} 
+                                name={item.name} 
+                                id={item.id} 
+                                key={i} 
+                                cmmnStyle={cmmnStyle} 
+                                rowIndex={i}
+                            />
                         )                                    
                     })
                 }

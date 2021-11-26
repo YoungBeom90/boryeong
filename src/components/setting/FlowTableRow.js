@@ -15,14 +15,14 @@ const FlowTableRow = (props) => {
                 <TableCell style={cmmnStyle.tableBody}>관심</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>진입부 유량 - 가압장 유량</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>
-                    <WarningFlowValues value={props.wValue} id={props.id} />
+                    <WarningFlowValues value={props.wValue} id={props.id} rowData={props.rowData} rowIndex={props.rowIndex}/>
                 </TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={cmmnStyle.tableBody}>이상</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>진입부 유량 - 가압장 유량</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>
-                    <DangerFlowValues value={props.dValue} id={props.id}/>
+                    <DangerFlowValues value={props.dValue} id={props.id} rowData={props.rowData} rowIndex={props.rowIndex} />
                 </TableCell>
             </TableRow>
         </TableBody> 

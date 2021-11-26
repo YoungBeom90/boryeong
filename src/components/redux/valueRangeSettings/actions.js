@@ -1,9 +1,10 @@
-import { ADD_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
+import { UPDATE_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
 import axios from "axios";
 
-export const addValue =() => {
+export const updateValue =(value) => {
     return {
-        type : ADD_VALUE
+        type : UPDATE_VALUE,
+        payload : value
     }
 }
 

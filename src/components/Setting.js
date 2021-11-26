@@ -15,7 +15,7 @@ import {
     AccordionSummary,
     AccordionDetails
 } from '@mui/material';
-import { Box, style } from '@mui/system';
+import { Box } from '@mui/system';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import PressTable from './setting/PressTable';
 import FlowTable from './setting/FlowTable';
@@ -27,7 +27,7 @@ const Setting = () => {
 
     const darkTheme = createTheme({ palette: { background: '#0090e3'} });
 
-    const [cmmnStyle, setCmmnStyle] = useState({
+    const [cmmnStyle] = useState({
         tableHead: {
             fontWeight: 'bold',
             textAlign: 'center'
@@ -35,18 +35,7 @@ const Setting = () => {
         tableBody: {
             textAlign: 'center'
         }
-    });
-
-    const [flowData, setFlowData] = useState([
-        {
-            id: "",
-            line: "",
-            warningVal : "",
-            dangerVal: "",
-        }
-    ]);
-
-    
+    });  
    
     return (
         

@@ -1,12 +1,12 @@
 import React from "react";
-import {TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell, TextField} from '@mui/material';
+import {TableContainer, Paper, Table, TableHead, TableBody, TableRow, TableCell} from '@mui/material';
 
 /**
  * // 수압 상태 조회 결과 테이블
  * @param {title, rowData} param0 
  * @returns 
  */
-const PressSearchStateTable = ({options, rowData}) => {
+const CommonSearchStateTable = ({options, tableData}) => {
 
 
     // 수압 상태 조회 결과 테이블
@@ -25,9 +25,6 @@ const PressSearchStateTable = ({options, rowData}) => {
         options.title+'10'
     ];
 
-
-    console.log("PressSearchStateTable ===================> ")
-    console.log(rowData);
     return (
         <TableContainer component={Paper} elevation={5} sx={{ maxHeight: 440, marginTop: 2 }}>
             <Table stickyHeader size="small">
@@ -45,21 +42,22 @@ const PressSearchStateTable = ({options, rowData}) => {
                                 //     color = "#f72f28";
                                 // }
                                 return (
-                                    <TableCell align="center" key={item}>{item}</TableCell>
+                                    <TableCell align="center" key={item} sx={{background: "#AEA59F", fontWeight: "bold"}}>{item}</TableCell>
                                 )
                             })
                         }
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {
-                        rowData.map((rowItem, index) => {
-                            if(index == 10) return;
+                    {   
+                        tableData.map((rowItem, index) => {
+                            
                             // console.log(item);
                             return (
-                                <TableRow>
+                                <TableRow key={index}>
                                     {
                                         header.map((item, index)=> {
+                                            if(!rowItem) return;
                                             // console.log();
                                             if(typeof rowItem[header[index]] == 'object') {
                                                 return (
@@ -67,7 +65,7 @@ const PressSearchStateTable = ({options, rowData}) => {
                                                 )
                                             } else {
                                                 return (
-                                                    <TableCell align="center" key={item}>{rowItem[header[index]]}</TableCell>
+                                                    <TableCell align="center" key={item+index}>{rowItem[header[index]]}</TableCell>
                                                 )
                                             }
 
@@ -84,4 +82,4 @@ const PressSearchStateTable = ({options, rowData}) => {
     )
 }
 
-export default PressSearchStateTable;
+export default CommonSearchStateTable;

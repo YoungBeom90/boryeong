@@ -5,24 +5,34 @@ import { initFlowSetData } from '../../redux/valueRangeSettings/actions';
 import { useDispatch } from 'react-redux';
 
 
-
 const WarningFlowValues = (props) => {
-
+    // if(props.rowData) {
+    //     console.log(props.rowIndex);
+    // }
     const dispatch = useDispatch();
 
-    const valueInput = useRef();
+    const valueInputRef = useRef();
+    const rowIndexRef = useRef();
 
     const updateData = () => {
 
-        console.log(valueInput.current.id);
-        console.log(valueInput.current.value);
-        
-        axios.post("/api/updateSetting",
-            {
-                "id" : valueInput.current.id, 
-                "warningVal": valueInput.current.value,
-            }
-        )
+        // console.log(valueInputRef.current.id);
+        // console.log(valueInputRef.current.value);
+
+        let data = {
+            id : valueInputRef.current.id,
+            warningVal : valueInputRef.current.value,
+            dangerVal: props.rowData[rowIndexRef.current.id].dangerVal,
+            kind: props.rowData[rowIndexRef.current.id].kind,
+            line: props.rowData[rowIndexRef.current.id].line,
+            name: props.rowData[rowIndexRef.current.id].name,
+            cretDt: props.rowData[rowIndexRef.current.id].cretDt,
+            updtDt: props.rowData[rowIndexRef.current.id].updtDt,
+            sort: props.rowData[rowIndexRef.current.id].sort,
+        }
+
+        console.log(data);
+        axios.post("/api/saveSetting", data)
         .then( async (res) => {
             if(res) {
                 alert("설정 되었습니다.");
@@ -38,8 +48,8 @@ const WarningFlowValues = (props) => {
     return (    
         <div>
             <TextField 
+                inputRef={valueInputRef}
                 id={props.id}
-                inputRef={valueInput}
                 defaultValue={props.value}
                 size="small"
                 variant="standard"
@@ -50,6 +60,8 @@ const WarningFlowValues = (props) => {
             />
             <Button 
                 onClick={()=>{updateData()}} 
+                ref={rowIndexRef}
+                id={props.rowIndex}
                 variant="outlined" 
                 color="primary" 
                 style={{marginLeft: 13}}

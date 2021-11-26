@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import styled from 'styled-components';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import StateDetail from './StateDetail';
 // import axios from 'axios';
@@ -32,14 +31,13 @@ const StateInfoBr = ({brData, modalStyle}) => {
 
     const [open, setOpen] = React.useState(false);
     const handleOpen = (elem) => {
-        console.log(elem.target.id);
+
         setCmmnAttr({
             title : cmmnAttr.title = detailOptions[elem.target.id].title,
             direction : 'A',
             location : '보령방향'
         });
         
-        console.log(cmmnAttr.title);
         setOpen(true);
     };
     const handleClose = () => setOpen(false);
