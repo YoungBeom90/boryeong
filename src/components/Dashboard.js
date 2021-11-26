@@ -7,7 +7,7 @@ import PressAverage from './dashboard/PressAverage';
 import WaterDepth from './dashboard/WaterDepth';
 import FlowAndDepth from './dashboard/FlowAndDepth';
 
-const Dashboard = (props) => {
+const Dashboard = (props) => { 
 
     const [splyData, setSplyData] = useState({
         todaySupply : '',
