@@ -1,16 +1,9 @@
 import React, {useEffect} from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, Paper } from '@mui/material';
 import PressTableRow from './PressTableRow';
-import { connect } from 'react-redux';
-import { initPressSetData } from '../redux/valueRangeSettings/actions';
 
 const PressTable = (props) => {
-
     const cmmnStyle = props.cmmnStyle;
-
-    useEffect(() => {
-        props.initPressSetData();
-    }, []);
 
     return (
         <TableContainer component={Paper} sx={{bgcolor: '#FFFFFF', marginBottom: '30px'}}>
@@ -45,20 +38,4 @@ const PressTable = (props) => {
     )
 }
 
-
-const mapStateToProps = (state) => {
-
-    return {
-        value : state.value,
-        flow : state.flow,
-        press : state.press
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        initPressSetData : async () => dispatch( await initPressSetData())
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PressTable);
+export default PressTable;

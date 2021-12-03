@@ -17,7 +17,7 @@ const StateInfoBr = ({brData, modalStyle}) => {
                 title: "밸브",
             },
             teleDetail : {
-                title : "통신상태",
+                title : "통신",
             }
         }
     
@@ -30,7 +30,7 @@ const StateInfoBr = ({brData, modalStyle}) => {
     });
 
     const [open, setOpen] = React.useState(false);
-    const handleOpen = (elem) => {
+    const modalOpen = (elem) => {
 
         setCmmnAttr({
             title : cmmnAttr.title = detailOptions[elem.target.id].title,
@@ -40,7 +40,7 @@ const StateInfoBr = ({brData, modalStyle}) => {
         
         setOpen(true);
     };
-    const handleClose = () => setOpen(false);
+    const modalClose = () => setOpen(false);
     return (
         
         // <!-- 보령방향 -->
@@ -51,24 +51,24 @@ const StateInfoBr = ({brData, modalStyle}) => {
                     <li>
                         <div className="box-title">수압상태</div>
                         <h2 className={brData.brPress !== "정상" ? "abnormal": "normal"}>{brData.brPress !== '' ? brData.brPress : ""}</h2>                       
-                        <button id="pressDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                        <button id="pressDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                     </li>
                     <li>
                         <div className="box-title">밸브상태</div>
                         <h2 className={brData.brValve !== "Open" ? "abnormal": "normal"}>{brData.brValve !== '' ? brData.brValve : ""}</h2>                   
-                        <button id="valveDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                        <button id="valveDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                     </li>
                     <li>
                         <div className="box-title">통신상태</div>
                         <h2 className={brData.brTele !== "전용회선" ? "warning": "normal"}>{brData.brTele !== '' ? brData.brTele : ""}</h2>
-                        <button id="teleDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                        <button id="teleDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                     </li>
                 </ul>
             </div>
             {/* 상태 상세보기 팝업창 */}
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={modalClose}>
                 <Box sx={modalStyle}>
-                    <StateDetail options={cmmnAttr} />
+                    <StateDetail options={cmmnAttr} modalClose={modalClose}/>
                 </Box>
             </Modal>
         </div>

@@ -12,7 +12,7 @@ const StateInfoWs = ({wsData, modalStyle}) => {
             title: "밸브",
         },
         teleDetail : {
-            title : "통신상태" ,
+            title : "통신" ,
         }
     }
     
@@ -25,7 +25,7 @@ const StateInfoWs = ({wsData, modalStyle}) => {
     });
 
     const [open, setOpen] = useState(false);
-    const handleOpen = (elem) => {
+    const modalOpen = (elem) => {
         console.log(elem.target.id);
         setCmmnAttr({
             title : cmmnAttr.title = detailOptions[elem.target.id].title,
@@ -36,7 +36,7 @@ const StateInfoWs = ({wsData, modalStyle}) => {
         console.log(cmmnAttr.title);
         setOpen(true);
     };
-    const handleClose = () => setOpen(false);
+    const modalClose = () => setOpen(false);
 
 
     return (
@@ -49,24 +49,24 @@ const StateInfoWs = ({wsData, modalStyle}) => {
                     <li>
                         <div className="box-title">수압상태</div>
                         <h2 className={wsData.wsPress !== "정상" ? "abnormal": "normal"}>{wsData.wsPress !== '' ? wsData.wsPress : ""}</h2>
-                        <button id="pressDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                        <button id="pressDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                     </li>
                     <li>
                         <div className="box-title">밸브상태</div>
                         <h2 className={wsData.wsValve !== "Open" ? "abnormal": "normal"}>{wsData.wsValve !== '' ? wsData.wsValve : ""}</h2>
-                        <button id="valveDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                        <button id="valveDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                     </li>
                     <li>
                         <div className="box-title">통신상태</div>
                         <h2 className={wsData.wsTele !== "전용회선" ? "warning": "normal"}>{wsData.wsTele !== '' ? wsData.wsTele : ""}</h2>
-                        <button id="teleDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                        <button id="teleDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                     </li>
                 </ul>
             </div>
             {/* 상태 상세보기 팝업창 */}
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={modalClose}>
                 <Box sx={modalStyle}>
-                    <StateDetail options={cmmnAttr} />
+                    <StateDetail options={cmmnAttr} modalClose={modalClose}/>
                 </Box>
             </Modal>
         </div>

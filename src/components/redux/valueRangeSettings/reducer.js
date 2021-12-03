@@ -1,30 +1,24 @@
-import { UPDATE_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
+import { INIT_DEPTH_SET_DATA, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
 
 const initialState = {
+    depth : [{},{}],
     flow : [],
     press : [],
-    depth : []
 };
 
 const controlValueReducer = (state=initialState, action) => {
 
     switch (action.type) {
-        case UPDATE_VALUE:
+        case INIT_DEPTH_SET_DATA:
             return {
                 ...state,
-                value : state.value + 1
-            }
-        case REMOVE_VALUE: 
-            return {
-                ...state,
-                value : state.value - 1
+                depth : action.payload
             }
         case INIT_FLOW_SET_DATA :
             return {
                 ...state,
                 flow : action.payload
             }
-            
         case INIT_PRESS_SET_DATA :
             return {
                 ...state,

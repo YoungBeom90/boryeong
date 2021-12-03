@@ -7,23 +7,30 @@ import Setting from './components/Setting';
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
 // import styled, {createGlobalStyle} from 'styled-components';
 import { Provider } from 'react-redux';
+// import { createStore, applyMiddleware } from 'redux';
+// import thunk from 'redux-thunk';
+// import reducer from './components/redux/valueRangeSettings/reducer';
 import store from './components/redux/store';
 import './css/style.css';
 
-const App = () => {
+// const store = createStore(reducer, applyMiddleware(thunk));
 
+const App = () => {
+  
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-          <Header/>
-          <Routes>
-            <Route exact path="/" element={<Dashboard />}></Route>
-            <Route path='/Report' element={<Report />}></Route>
-            <Route path='/Setting' element={<Setting />}></Route>
-          </Routes>
-          <Footer/>
-      </BrowserRouter>
-    </Provider>
+      <Provider store={store}>
+        <BrowserRouter>
+          <div className="wrap" style={{height: "100%"}}>
+              <Header/>
+                <Routes>
+                  <Route exact path="/" element={<Dashboard />}></Route>
+                  <Route path='/Report' element={<Report />}></Route>
+                  <Route path='/Setting' element={<Setting />}></Route>
+                </Routes>
+          </div>
+          <Footer sx={{display: "flex"}} />
+        </BrowserRouter>
+      </Provider>
   );
 }
 

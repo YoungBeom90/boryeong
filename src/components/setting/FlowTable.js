@@ -1,30 +1,9 @@
 import React, { useEffect } from 'react';
 import { TableContainer, Table, TableHead, TableRow, TableCell, Paper } from '@mui/material';
 import FlowTableRow from './FlowTableRow';
-import { connect } from "react-redux";
-import { initFlowSetData } from '../redux/valueRangeSettings/actions';
 
 const FlowTable = (props) => {
-
     const cmmnStyle = props.cmmnStyle;
-    
-    // const tableHead = {
-    //     fontWeight: 'bold',
-    // }
-
-    // const [changeVal, setChangeVal] = useState(0);
-    // const [text, setText] = useState("");
-
-    // const inputEl = useRef(null);
-    
-    // const onButtonClick = () => {
-    //     setText("Thank you!!");
-    //     inputEl.current.focus();
-    // }
-
-    useEffect(() => {
-        props.initFlowSetData();
-    }, []);
 
     return (
         <TableContainer component={Paper} sx={{bgcolor: '#FFFFFF', marginBottom: '30px'}}>
@@ -59,19 +38,4 @@ const FlowTable = (props) => {
     )
 }
 
-const mapStateToProps = (state) => {
-
-    return {
-        value : state.value,
-        flow : state.flow,
-        press : state.press
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        initFlowSetData : async () => dispatch( await initFlowSetData())
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(FlowTable);
+export default FlowTable;

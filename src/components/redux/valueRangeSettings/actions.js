@@ -1,16 +1,12 @@
-import { UPDATE_VALUE, REMOVE_VALUE, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
+import { INIT_DEPTH_SET_DATA, INIT_FLOW_SET_DATA, INIT_PRESS_SET_DATA } from "./types"
 import axios from "axios";
 
-export const updateValue =(value) => {
-    return {
-        type : UPDATE_VALUE,
-        payload : value
-    }
-}
+export const initDepthSetData = async () => {
+    const initDepthSetData = await axios.get('/api/settings?type=LEVEL');
 
-export const removeValue = () => {
     return {
-        type : REMOVE_VALUE
+        type : INIT_DEPTH_SET_DATA,
+        payload : initDepthSetData.data
     }
 }
 
@@ -30,4 +26,13 @@ export const initPressSetData = async () => {
         type : INIT_PRESS_SET_DATA,
         payload : initPressSetData.data
     }
+}
+
+export const initDepthSetDataThunk = () => (dispatch) => {
+    // const initDepthSetData = await axios.get('/api/settings?type=LEVEL');
+    const data = [
+        {warningVal : 1, dangerVal : 2},
+        {warningVal : 3, dangerVal : 4}
+    ]
+    setTimeout(() => dispatch({type: INIT_DEPTH_SET_DATA, payload: data}), 5000)
 }

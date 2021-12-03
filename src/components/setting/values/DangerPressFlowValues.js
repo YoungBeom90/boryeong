@@ -4,30 +4,24 @@ import axios from 'axios';
 import { initFlowSetData } from '../../redux/valueRangeSettings/actions';
 import { useDispatch } from 'react-redux';
 
-const DangerFlowValues = (props) => {
+const DangerPressFlowValues = (props) => {
     const dispatch = useDispatch();
 
-    const valueInput = useRef();
+    const valueInputRef = useRef();
     const rowIndexRef = useRef();
 
     const updateData = () => {
 
-        console.log(valueInput.current.id);
-        console.log(valueInput.current.value);
+        let axiosData
+        props.rowData.map((list, i)=> {
+            if(list.id === valueInputRef.current.id) {
+                axiosData = list;
+            }
+        });
 
-        let data = {
-            id : valueInput.current.id,
-            dangerVal: valueInput.current.value,
-            warningVal : props.rowData[rowIndexRef.current.id].warningVal,
-            kind: props.rowData[rowIndexRef.current.id].kind,
-            line: props.rowData[rowIndexRef.current.id].line,
-            name: props.rowData[rowIndexRef.current.id].name,
-            cretDt: props.rowData[rowIndexRef.current.id].cretDt,
-            updtDt: props.rowData[rowIndexRef.current.id].updtDt,
-            sort: props.rowData[rowIndexRef.current.id].sort,
-        }
+        axiosData.dangerVal = valueInputRef.current.value;
         
-        axios.post("/api/saveSetting", data)
+        axios.post("/api/saveSetting", axiosData)
         .then( async (res) => {
             if(res) {
                 alert("설정 되었습니다.");
@@ -35,7 +29,7 @@ const DangerFlowValues = (props) => {
             }
         })
         .catch(() => {
-            alert("서버 수정 요청 실패.");
+            alert("설정하는 중 문제가 발생하였습니다.");
         });
 
     }
@@ -43,7 +37,9 @@ const DangerFlowValues = (props) => {
     return (     
         <div>
             <TextField 
-                inputRef={valueInput}
+                className="search-input"
+                inputRef={valueInputRef}
+                type="number"
                 id={props.id}
                 defaultValue={props.value}
                 data={props.rowIndex}
@@ -61,9 +57,10 @@ const DangerFlowValues = (props) => {
                 variant="outlined" 
                 color="error" 
                 style={{marginLeft: 13}}
+                size="small"
                 >저장</Button>
         </div>               
     )
 }
 
-export default DangerFlowValues;
+export default DangerPressFlowValues;

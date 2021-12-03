@@ -1,10 +1,10 @@
 import React from "react";
 import CommonModal from "../modal/CommonModal";
 
-const StateDetail = ({options}) => {
+const StateDetail = ({options, modalClose}) => {
 
     return (
-        <CommonModal options={options}/>
+        <CommonModal options={options} modalClose={modalClose}/>
     )
     
     

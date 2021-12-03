@@ -21,7 +21,7 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
     });
 
     const [open, setOpen] = useState(false);
-    const handleOpen = (elem) => {
+    const modalOpen = (elem) => {
         console.log(elem.target.id);
         setCmmnAttr({
             title : cmmnAttr.title = detailOptions[elem.target.id].title,
@@ -30,7 +30,7 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
         console.log(cmmnAttr.title);
         setOpen(true);
     };
-    const handleClose = () => setOpen(false);
+    const modalClose = () => setOpen(false);
 
     return (
         
@@ -41,8 +41,8 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
                     <ul>
                         <li>
                             <div className="box-title">유량상태</div>
-                            <h2 className={cmmnData.flow !== "정상" ? "abnormal" : "normal"}>{cmmnData.flow !== '' ? cmmnData.flow : "-"}</h2>
-                            <button id="flowDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                            <h2 className={cmmnData.flow !== "정상" ? "abnormal" : "normal"}>{cmmnData.flow !== '' ? cmmnData.flow : ""}</h2>
+                            <button id="flowDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                         </li>
                     </ul>
                 </div>
@@ -53,16 +53,16 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
                     <ul>
                         <li>
                             <div className="box-title">수심상태</div>
-                            <h2 className={cmmnData.level !== "정상" ? "abnormal" : "normal"}>{cmmnData.level !== '' ? cmmnData.level : "-"}</h2>
-                            <button id="depthDetail" className="detail-btn" onClick={handleOpen}>상세보기</button>
+                            <h2 className={cmmnData.level !== "정상" ? "abnormal" : "normal"}>{cmmnData.level !== '' ? cmmnData.level : ""}</h2>
+                            <button id="depthDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                         </li>
                     </ul>
                 </div>
             </div>
             {/* 상태 상세보기 팝업창 */}
-            <Modal open={open} onClose={handleClose}>
+            <Modal open={open} onClose={modalClose}>
                 <Box sx={modalStyle}>
-                    <StateDetail options={cmmnAttr} />
+                    <StateDetail options={cmmnAttr} modalClose={modalClose}/>
                 </Box>
             </Modal>
         </div>

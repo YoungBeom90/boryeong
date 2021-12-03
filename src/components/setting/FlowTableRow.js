@@ -1,13 +1,12 @@
 import React from "react";
 import { TableBody, TableRow, TableCell } from "@mui/material";
-import WarningFlowValues from "./values/WarningFlowValues";
-import DangerFlowValues from "./values/DangerFlowValues";
+import WarningPressFlowValues from "./values/WarningPressFlowValues";
+import DangerPressFlowValues from "./values/DangerPressFlowValues";
 
 
 const FlowTableRow = (props) => {
     
     const cmmnStyle = props.cmmnStyle;
-
     return (
         <TableBody>
             <TableRow>
@@ -15,14 +14,14 @@ const FlowTableRow = (props) => {
                 <TableCell style={cmmnStyle.tableBody}>관심</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>진입부 유량 - 가압장 유량</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>
-                    <WarningFlowValues value={props.wValue} id={props.id} rowData={props.rowData} rowIndex={props.rowIndex}/>
+                    <WarningPressFlowValues value={props.wValue} id={props.id} rowData={props.rowData} rowIndex={props.rowIndex}/>
                 </TableCell>
             </TableRow>
-            <TableRow>
+            <TableRow sx={{background: '#fff4ed'}}>
                 <TableCell style={cmmnStyle.tableBody}>이상</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>진입부 유량 - 가압장 유량</TableCell>
                 <TableCell style={cmmnStyle.tableBody}>
-                    <DangerFlowValues value={props.dValue} id={props.id} rowData={props.rowData} rowIndex={props.rowIndex} />
+                    <DangerPressFlowValues value={props.dValue} id={props.id} rowData={props.rowData} rowIndex={props.rowIndex} />
                 </TableCell>
             </TableRow>
         </TableBody> 

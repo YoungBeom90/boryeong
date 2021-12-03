@@ -16,9 +16,9 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
+	/*font-size: 100%;*/
 	font: inherit;
-	vertical-align: baseline;
+	/*vertical-align: baseline;*/
 }
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
@@ -47,27 +47,91 @@ table {
 /* 폰트 */
 
 /* body */
-body { font-family: ‘Noto Sans KR’, sans-serif;}
+body { font-family: ‘Noto Sans KR’, sans-serif; height: 100%;}
 .main-bg {
     background-image: url(../img/bg.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
-    background-size: cover;
+    background-size: cover;   
 }
-.wrap {overflow: hidden; min-width: 1170px;}
+.wrap {position: relative; min-width: 1170px; height: 100vh;}
+/*.sub-page .wrap {height: 100%; padding-bottom: 130px;}*/
+
+/* 인풋 속성 */
+label {font-weight: bold; margin-right: 15px;}
+.search-input {height: 24px; border: 1px solid #9f9f9f; border-radius: 0.25rem; padding-left: 10px;}
+.calendar-icon {background: #ffffff url(../img/calendar.png) no-repeat 98% 50%;}
+
+/* button */
+.btn-wrap {/*position: absolute; top: 13.2%; left: 68%;*/ float: right; margin: 5px;}
+/* .btn-wrap-modal {position: absolute; top: 12%; left: 45%;} */
+.btn {display: inline-block; font-weight: 400; text-align: center; white-space: nowrap; vertical-align: middle; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; border: 1px solid transparent; padding:4px 10px; font-size: 14px; border-radius: 0.25rem;}
+.btn:not(:disabled):not(.disabled) {cursor: pointer;}
+.btn-primary {color: #fff; background-color: #007bff; border-color: #007bff;}
+.btn-secondary {color: #fff; background-color: #6c757d; border-color: #6c757d;}
+
+/* select */
+select {height: 28px; border: 1px solid #9f9f9f; border-radius: 0.25rem; padding-left: 10px;}
+
+/* 테이블 속성 */
+table {width: 100%; font-size: 13px; text-align: center;}
+table th, table td {height: 35px; border: 1px solid #c6cde5;}
+table thead th {font-weight: bold; border: 1px solid #c6cde5; background: #d6e5f8;}
+table tbody tr:hover {background: #ebf2fa;}
+table tbody td {color: #666;}
+/* table.tbl-fiexed {width:100%;} */
+.tbl-header{width: 98%; /*background: #d6e5f8;*/ margin-left: auto; margin-right: auto; margin-bottom: 1%;/*position: -webkit-sticky; position: sticky; top: 0; margin: 0;*/}
+
+/* 범례 */
+.legend-info {/*position: absolute; top: -27px; right: 0;*/ float: right; margin: 1%;}
+.legend-info li {float: left; font-size: 14px; margin-right: 10px;}
+.legend-info li:last-child {margin-right: 10px;}
+.legend-info li span {position: relative; top: 3px; display: inline-block; width: 28px; height: 13px; border: 1px solid #000000; margin-right: 5px;}
+.legend-info li a {text-decoration: none;}
+.legend-info p.tip {position: relative; top: 3px; width: 17px; height: 17px; color: #fff; text-align: center; background: #7a7a7a; border-radius: 30px;}
+
+/* 범례 색상 */
+.white {color: #000; font-weight: bold; background: #ffffff !important;}
+.red {color: #fff; font-weight: bold; background: #ff0000 !important;}
+.yellow {color: #000; font-weight: bold; background: #ffcc00 !important;}
+
+/* 모달팝업 */
+.modal {display: none; position: fixed; left: 0; top: 0; width: 100%; height: 100%; background-color: rgb(0,0,0); background-color: rgba(0,0,0,0.7); z-index: 1;}    
+.modal-wrap {position: relative; background-color: #fefefe; margin: 5% auto; width: 1000px;}
+.modal-content {padding: 30px;}
+.modal-title {font-size: 16px; color:#fff; height: 40px; background: #0066ff; line-height: 38px; padding-left: 10px;}
+.close {position:absolute; top:0; right:0; width: 40px; height: 40px; background: #0047b1 url(../img/close.png) no-repeat center center;}
+.close:hover, .close:focus {background: #0047b1 url(../img/close_hover.png) no-repeat center center; cursor: pointer;}
+.small-box {position: absolute; top: 9px; right: 4px; width: 16px; height: 16px; border-radius: 3px;}
+
+/* 수압상태 현황 팝업 */
+.pipeline-state {position: relative; width: 889px; margin: 0 auto; height: 43px; padding: 5px 25px; background: url(../img/pipeline_state.png) no-repeat center center; margin-bottom: 10px;}
+.pipeline-state div {float: left; letter-spacing: -1px;}
+.side-info {width: 17%; font-size: 14px; font-weight: bold; color: #006088; text-align: center; line-height: 38px;}
+.middle-info {width: 66%; margin: 0 auto; margin-top: 1px;}
+.middle-info ul li {float: left; width: 9.81%; height: 41px; font-size: 14px; line-height: 38px; text-align: center; background: #ffffff; border-left: 1px solid #747486; border-right: 1px solid #747486; margin-left: -1px;}
+/* IE10+ */
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+ 	.pipeline-state .side-info .btn {line-height:normal;}
+}
+/* 통신상태 팝업*/
+.middle-info ul.Message-state > li {width: 33.1%;}
+.unit-info {position: absolute; top:-22px; right: 0; font-size: 14px; color: #666;}
+/* 유량상태 팝업*/
+.middle-info ul.Flux-state > li {width: 100%;}
+
 
 /* 헤더 */
 header{width: 100%; height: 79px; border-bottom: 1px solid #00598c; background: linear-gradient(#03142c, #03355d);}
 .logo {position: absolute; top: 20px; left: 0;}
 .logo a {display: relative; text-decoration: none; color: #fff;}
 .logo a img {display: inline-block; position: relative; margin-right: 10px; top: 3px;}
-.logo h1 {display: inline-block; font-size: 25px; font-weight: 500;}
-.gnb {position: relative; width: 1140px; padding: 0 15px; margin: 0 auto; font-size: 18px; color: #fff; font-weight: 500;}
+.logo h1 {display: inline-block; font-size: 22px; font-weight: 500;}
+.gnb {position: relative; width: 1140px; padding: 0 15px; margin: 0 auto; font-size: 17px; color: #fff; font-weight: 500;}
 .gnb ul.nav {position:absolute; top:39px; right: 0; width: 510px;}
-.gnb ul.nav li {float: left; width: 33.33%; text-align: center; padding-bottom: 20px;}
+.gnb ul.nav li {float: left; width: 33.33%; text-align: center; padding-bottom: 21px;}
 .gnb ul.nav li a {text-decoration: none; color: #fff; padding: 17px;}
-.gnb ul.nav li a:hover {border-bottom: 3px solid #00a9ff;}
-.gnb ul.nav li a.active {border-bottom: 3px solid #00a9ff;}
+.gnb ul.nav li.active {border-bottom: 3px solid #00a9ff;}
 .gnb ul.nav li:nth-child(1) a {background: url(../img/icon_01.png) no-repeat center top;}
 .gnb ul.nav li:nth-child(2) a {background: url(../img/icon_02.png) no-repeat center top;}
 .gnb ul.nav li:nth-child(3) a {background: url(../img/icon_03.png) no-repeat center top;}
@@ -76,7 +140,7 @@ header{width: 100%; height: 79px; border-bottom: 1px solid #00598c; background: 
 /* 본문 */
 .content-wrap {position: relative;}
 .pipeline {position: absolute; width:100%; height: 279px; background: url(../img/pipeline.png) center center no-repeat; margin-top: 160px; z-index: -1;}
-.container {width: 1140px; padding-top: 100px; padding-left: 15px; padding-right: 15px;margin: 0 auto;}
+.container {width: 1140px; font-size: 15px; padding-top: 100px; padding-left: 15px; padding-right: 15px;margin: 0 auto;}
 .left-wrap, .right-wrap {float: left; width: 50%; height: 600px; position: relative;}
 .left-wrap .flow-box-wrap {margin-bottom: 30px;}
 .left-wrap .flow-box-wrap .title {font-size: 15px; color: #fff; margin-bottom: 10px;}
@@ -110,17 +174,30 @@ header{width: 100%; height: 79px; border-bottom: 1px solid #00598c; background: 
 .illust-text ul li:nth-child(2) {position: absolute; top:-4px; right: 133px; background: #505760; border-radius: 2px; padding: 5px;}
 .illust-text ul li:nth-child(3) {position: absolute; top:0; right: 50px; text-shadow: 0px 0px 4px black;}
 
-/* 추가기능 */
-.searchDiv { width: auto; height: 25px; margin: 10px; display: inline-flex; }
-.searchDiv span { width: 60px; font-size: small; align-content: center;}
-.searchDiv select { width: 70px; height: 20px; margin-right: 10px;}
-.searchDiv button { width: 100px; height: 22px; margin-left: 15px;}
-.searchDiv .react-datepicker-wrapper {width: 110px; text-align: justify;}
-.searchDiv .react-datepicker-wrapper .react-datepicker__input-container input{ width: 100px;}
-.statusNormal { color: #fff }
-.statusAbnormal { color : #ff0000 }
-.statusWarning { color : #ffc830 }
+/* 서브 페이지*/
+.sub-page {background: #ffffff;}
+.sub-page .container {padding-top:30px;}
+.content-title {font-size: 20px; color:#007aff; font-weight: 900;}
+.content-title img {display: inline-block; margin-right:15px;}
+.search-wrap {background: #ececec; margin-top: 30px; padding: 11px 15px; display: flex;}
+.report-title {font-size: 20px; font-weight: 900; text-align: center; margin-top: 45px;}
+.report-date {color: #007aff;}
+.content-list {margin-top: 30px;}
+.content-list h2 {font-size: 15px; font-weight: bold; margin-left: 28px; margin-bottom: 10px;}
+.content-list h2:before {content: ""; display: inline-block; position: relative; top: 2px; width: 3px; height: 15px; background: #00a9ff; margin-right: 10px;}
 
 /* 푸터 */
 footer {position:absolute; bottom:0; width: 100%; height: 80px; background: #000b16;}
-footer h2 {color: #fff; font-size: 15px; text-align: center; margin-top: 32px;}
+footer h2 {position:relative; color: #fff; font-size: 15px; text-align: center; margin-top: 32px;}
+
+
+/* 추가기능 */
+.searchDiv { width: auto; height: 25px; margin: 10px; display: inline-flex; }
+.searchDiv span { width: 60px; font-size: small; align-content: center;}
+/* .searchDiv select { width: 70px; height: 20px; margin-right: 10px;} */
+.searchDiv button { width: 100px; height: 22px; margin-left: 15px;}
+.searchDiv .react-datepicker-wrapper {width: 200px; text-align: justify; margin-left: 5px;}
+/* .searchDiv .react-datepicker-wrapper .react-datepicker__input-container input{ width: 100px;} */
+.statusNormal { color: #fff }
+.statusAbnormal { color : #ff0000 }
+.statusWarning { color : #ffc830 }

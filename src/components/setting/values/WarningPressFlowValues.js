@@ -5,7 +5,7 @@ import { initFlowSetData } from '../../redux/valueRangeSettings/actions';
 import { useDispatch } from 'react-redux';
 
 
-const WarningFlowValues = (props) => {
+const WarningPressFlowValues = (props) => {
     // if(props.rowData) {
     //     console.log(props.rowIndex);
     // }
@@ -16,31 +16,24 @@ const WarningFlowValues = (props) => {
 
     const updateData = () => {
 
-        // console.log(valueInputRef.current.id);
-        // console.log(valueInputRef.current.value);
+        let axiosData
+        props.rowData.map((list, i)=> {
+            if(list.id === valueInputRef.current.id) {
+                axiosData = list;
+            }
+        });
 
-        let data = {
-            id : valueInputRef.current.id,
-            warningVal : valueInputRef.current.value,
-            dangerVal: props.rowData[rowIndexRef.current.id].dangerVal,
-            kind: props.rowData[rowIndexRef.current.id].kind,
-            line: props.rowData[rowIndexRef.current.id].line,
-            name: props.rowData[rowIndexRef.current.id].name,
-            cretDt: props.rowData[rowIndexRef.current.id].cretDt,
-            updtDt: props.rowData[rowIndexRef.current.id].updtDt,
-            sort: props.rowData[rowIndexRef.current.id].sort,
-        }
-
-        console.log(data);
-        axios.post("/api/saveSetting", data)
+        axiosData.warningVal = valueInputRef.current.value;
+        
+        axios.post("/api/saveSetting", axiosData)
         .then( async (res) => {
-            if(res) {
+            if(res.status === 200) {
                 alert("설정 되었습니다.");
                 dispatch( await initFlowSetData());
             }
         })
         .catch(() => {
-            alert("서버 수정 요청 실패.");
+            alert("설정하는 중 문제가 발생하였습니다.");
         });
 
     }
@@ -48,7 +41,9 @@ const WarningFlowValues = (props) => {
     return (    
         <div>
             <TextField 
+                className="search-input"
                 inputRef={valueInputRef}
+                type="number"
                 id={props.id}
                 defaultValue={props.value}
                 size="small"
@@ -65,9 +60,10 @@ const WarningFlowValues = (props) => {
                 variant="outlined" 
                 color="primary" 
                 style={{marginLeft: 13}}
+                size="small"
                 >저장</Button>
         </div> 
     )
 }
 
-export default WarningFlowValues;
+export default WarningPressFlowValues;
