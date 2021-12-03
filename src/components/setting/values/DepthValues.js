@@ -11,11 +11,11 @@ const DepthValues = (props) => {
     console.log(props.value)
     const inputRef = useRef();
 
-    const [val, setVal] = useState(props.value);
+    // const [val, setVal] = useState(props.value);
 
     useEffect(() => {
-        // inputRef.current.defaultValue = props.value;
-        setVal(props.value);
+        inputRef.current.defaultValue = props.value;
+        // setVal(props.value);
     })
     const cmmnStyle = props.cmmnStyle;
 
@@ -45,8 +45,8 @@ const DepthValues = (props) => {
         <TableCell style={cmmnStyle.tableBody}>
             <TextField 
                 inputRef={inputRef}
-                // defaultValue={val}
-                value={val}
+                defaultValue={props.value}
+                // value={val}
                 size="small"
                 type="number"
                 variant="standard"
