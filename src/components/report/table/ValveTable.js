@@ -2,7 +2,7 @@ import React from "react";
 
 const ValveTable = () => {
     return (
-        <table>
+        <table className="valveTb">
             <thead>
                 <tr>
                     <th>구분</th>

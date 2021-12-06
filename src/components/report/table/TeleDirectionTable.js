@@ -2,7 +2,7 @@ import React from "react";
 
 const TeleDirectionTable = () => {
     return (
-        <table style={{marginTop: "10px"}}>
+        <table className="teleDirTb" style={{marginTop: "10px"}}>
             <thead>
                 <tr>
                     <th>구분</th>

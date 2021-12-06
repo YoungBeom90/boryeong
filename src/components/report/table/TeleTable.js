@@ -2,7 +2,7 @@ import React from "react";
 
 const TeleTable = () => {
     return (
-        <table>
+        <table className="teleTb">
             <thead>
                 <tr>
                     <th>상태</th>

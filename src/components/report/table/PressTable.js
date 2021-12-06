@@ -2,7 +2,7 @@ import React from "react";
 
 const PressTable = ({data}) => {
     return (
-        <table>
+        <table className="pressTb">
             <thead>
                 <tr>
                     <th>구분</th>

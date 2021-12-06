@@ -6,7 +6,7 @@ import FlowSearchMonitorTable from './table/FlowSearchMonitorTable';
 import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import axios from "axios";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Backdrop } from "@mui/material";
 import styled from "styled-components";
 
 const CommonModal = ({options, modalClose}) => {
@@ -43,7 +43,8 @@ const CommonModal = ({options, modalClose}) => {
     const [flowTableData, setFlowTableData] = useState({A: [], B : []});
     const [fromDate, setFromDate] = useState();
     const [toDate, setToDate] = useState();
-    const [isLoading, setIsLoading] = useState(false);
+    // const [isLoading, setIsLoading] = useState(false);
+    const [open, setOpen] = useState(false);
 
     const [kind, setKind] = useState('');
 
@@ -90,7 +91,8 @@ const CommonModal = ({options, modalClose}) => {
 
         
         if(kind !== "FLOW") {
-            setIsLoading(true);
+            // setIsLoading(true);
+            setOpen(true);
             axios.get(`/api/dashboard/popup?kind=${kind}&direction=${direction}&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`,
             {timeout: 10000})
             .then(({data}) => {
@@ -113,10 +115,12 @@ const CommonModal = ({options, modalClose}) => {
                 alert("조회 요청 중 서버 문제가 발생했습니다.");
             })
             .finally(() => {
-                setIsLoading(false);
+                // setIsLoading(false);
+                setOpen(false);
             })
         } else {
-            setIsLoading(true);
+            // setIsLoading(true);
+            setOpen(true);
             // 보령방향 FLOW
             axios.get(`/api/dashboard/popup?kind=FLOW&direction=A&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`)
             .then(({data}) => {
@@ -157,7 +161,8 @@ const CommonModal = ({options, modalClose}) => {
                 alert("조회 요청 중 서버 문제가 발생했습니다.");
             })
             .finally(() => {
-                setIsLoading(false);
+                // setIsLoading(false);
+                setOpen(false);
             })
         }
 
@@ -171,7 +176,13 @@ const CommonModal = ({options, modalClose}) => {
 
     return (
         <div style={{maxHeight : "80vh"}}>
-            {isLoading && <CircularProgress id="loadingCircular" color="secondary" sx={{position : 'absolute', top: '30%', left: '47%', zIndex: 0}}/> }
+            {/* {isLoading && <CircularProgress id="loadingCircular" color="secondary" sx={{position : 'absolute', top: '30%', left: '47%', zIndex: 0}}/> } */}
+            <Backdrop 
+                sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+                open={open}
+            >
+            <CircularProgress id="loadingCircular" color="inherit"/>
+            </Backdrop>
             <span className="close" onClick={modalClose} ></span>
             <div className="modal-title">
                 {options.title}상태 상세보기

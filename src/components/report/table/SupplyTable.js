@@ -2,7 +2,7 @@ import React from "react";
 
 const SupplyTable = ({data}) => {
     return (
-        <table>
+        <table className="supplyTb">
             <thead>
                 <tr>
                     <th>일 공급량 [A]</th>

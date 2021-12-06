@@ -2,7 +2,7 @@ import React from "react";
 
 const DepthTable = ({data}) => {
     return (
-        <table>
+        <table className="depthTb">
             <thead>
                 <tr>
                     <th>일 평균 수위 [A]</th>
