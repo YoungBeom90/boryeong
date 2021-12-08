@@ -1,6 +1,7 @@
 import React from "react";
 
 const DepthTable = ({data}) => {
+    console.log(data);
     return (
         <table className="depthTb">
             <thead>

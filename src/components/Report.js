@@ -117,7 +117,7 @@ const Report = () => {
                 data.result.supplyReport.id = 1;
                 setSupplyData(data.result.supplyReport);
                 setPressData(data.result.pressReport);
-                setDepthData(data.result.levelReport);
+                setDepthData(data.result.depthReport);
             } else {
                 alert('데이터가 없습니다.');
             }

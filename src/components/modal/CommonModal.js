@@ -130,7 +130,7 @@ const CommonModal = ({options, modalClose}) => {
             .then(({data}) => {
                 let setTable = {A: [], B:[]}
                 let setTotal = {A: {}, B:{}};
-                
+                console.log(data.statusList);
 
                 setTable.A = data.statusList;
                
@@ -146,17 +146,20 @@ const CommonModal = ({options, modalClose}) => {
                 .then(({data}) => {
                     setTable.B = data.statusList;
                     setFlowTableData(setTable);
-
-                    console.log(flowTableData);
-                    if(!flowTableData.A.length && !flowTableData.B.length) {
-                        alert("조회된 정보가 없습니다.");
-                    }
+                    console.log(data.statusList);
+                    
+                    
 
                     let keys = Object.keys(flowStatus.B);
                     keys.map((item, index) => {
                         setTotal.B[options.title + (index+1)] = display[data.totalStatus[kind + (index+1)]];
                     });
+                    if(!setTable.A.length && !setTable.B.length) {
+                        alert("조회된 정보가 없습니다.");
+                    }
                     setFlowStatus(setTotal);
+
+                    
                     
                 })
                 .catch(() => {
