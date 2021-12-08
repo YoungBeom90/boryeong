@@ -12,7 +12,7 @@ const DepthTable = (props) => {
     const [twoData, setTwoData] = useState([]);
 
     useEffect(() => {
-        axios.get("/api/settings?type=LEVEL")
+        axios.get("/api/settings?type=DEPTH")
         .then(({data}) => {
             setDepthVal({
                 oneHourWarn : data[0].warningVal,

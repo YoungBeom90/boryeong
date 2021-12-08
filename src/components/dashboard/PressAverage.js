@@ -1,24 +1,8 @@
 import React from "react";
-// import styled from "styled-components";
 
 const PressAverage = ({pressData}) => {
 
     return (
-        // <Section>
-        //     <Header>평균수압</Header>
-        //     <Average>
-        //         <Title>금일</Title>
-        //         <p>{pressData.todayPress !== "" ? pressData.todayPress : "-"}</p>
-        //     </Average>
-        //     <Average>
-        //         <Title>주간</Title>
-        //         <p>{pressData.weekPress !== "" ? pressData.weekPress : "-"}</p>
-        //     </Average>
-        //     <Average>
-        //         <Title>월간</Title>
-        //         <p>{pressData.monthPress !== "" ? pressData.monthPress : "-"}</p>
-        //     </Average>
-        // </Section>
         <div className="flow-box-wrap">
             <div className="title">평균 수압</div>
             <div className="flow-box">

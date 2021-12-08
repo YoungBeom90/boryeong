@@ -7,34 +7,6 @@ const FlowLiveStatusTable = ({status}) => {
     const statusKeysB = Object.keys(status.B);
     console.log(status);
     return (
-        // <TableContainer component={Paper} elevation={5} style={{marginTop: 10}}>
-        //     <Table size="small">
-        //         <TableHead>
-        //             <TableRow>
-        //                 <TableCell >보령방향</TableCell>
-        //                 {
-        //                     statusKeysA.map((item, index) => {
-        //                         index++;
-        //                         return (<TableCell key={item} sx={{background : status.A[item]}} align="center">{item}</TableCell>)
-        //                     })
-        //                 }
-        //             </TableRow>
-        //         </TableHead>
-        //     </Table>
-        //     <Table size="small">
-        //         <TableHead>
-        //             <TableRow>
-        //                 <TableCell >원산도방향</TableCell>
-        //                 {
-        //                     statusKeysB.map((item, index) => {
-        //                         index++;
-        //                         return (<TableCell key={item} sx={{background : status.B[item]}} align="center">{item}</TableCell>)
-        //                     })
-        //                 }
-        //             </TableRow>
-        //         </TableHead>
-        //     </Table>
-        // </TableContainer>
         <div>
             {/* <!-- 수압상태현황 표시 --> */}
             <div className="content-list">

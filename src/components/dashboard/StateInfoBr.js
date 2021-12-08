@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-// import styled from 'styled-components';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import StateDetail from './StateDetail';
-// import axios from 'axios';
 
 const StateInfoBr = ({brData, modalStyle}) => {
     // console.log(brData);

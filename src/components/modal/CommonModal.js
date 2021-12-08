@@ -12,7 +12,7 @@ import styled from "styled-components";
 const CommonModal = ({options, modalClose}) => {
     
     const display = {
-        normal: "#ffdf75",
+        normal: "#fff",
         warning: "#ffdf75",
         danger: "#ff7847",
     }
@@ -93,12 +93,16 @@ const CommonModal = ({options, modalClose}) => {
         if(kind !== "FLOW") {
             // setIsLoading(true);
             setOpen(true);
-            axios.get(`/api/dashboard/popup?kind=${kind}&direction=${direction}&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`,
-            {timeout: 10000})
+            axios.get(`/api/dashboard/popup?kind=${kind}&direction=${direction}&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`)
             .then(({data}) => {
                 
                 console.log(data.statusList);
                 console.log(data.totalStatus);
+
+                if(!data.statusList.length) {
+                    alert("조회된 정보가 없습니다.");
+                    return;
+                }
 
                 setTableData(data.statusList);
 
@@ -138,13 +142,15 @@ const CommonModal = ({options, modalClose}) => {
                 
                 
                 // 원산도 방향 FLOW
-                axios.get(`/api/dashboard/popup?kind=FLOW&direction=B&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`,
-                {timeout : 10000})
+                axios.get(`/api/dashboard/popup?kind=FLOW&direction=B&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`)
                 .then(({data}) => {
                     setTable.B = data.statusList;
                     setFlowTableData(setTable);
 
                     console.log(flowTableData);
+                    if(!flowTableData.A.length && !flowTableData.B.length) {
+                        alert("조회된 정보가 없습니다.");
+                    }
 
                     let keys = Object.keys(flowStatus.B);
                     keys.map((item, index) => {
@@ -176,7 +182,6 @@ const CommonModal = ({options, modalClose}) => {
 
     return (
         <div style={{maxHeight : "80vh"}}>
-            {/* {isLoading && <CircularProgress id="loadingCircular" color="secondary" sx={{position : 'absolute', top: '30%', left: '47%', zIndex: 0}}/> } */}
             <Backdrop 
                 sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
                 open={open}
@@ -188,20 +193,7 @@ const CommonModal = ({options, modalClose}) => {
                 {options.title}상태 상세보기
             </div>
             <div className="search-wrap" style={{marginTop:0}}>
-            <label style={{lineHeight: "35px", marginRight: 6}}>조회일자</label>
-                {/* <DatePicker
-                    selected={fromDate}
-                    onChange={(date) => setFromDate(date)}
-                    dateFormat="yyyy-MM-dd"
-                    locale={ko}
-                />
-                <span> ~ </span>
-                <DatePicker
-                    selected={toDate}
-                    onChange={(date) => setToDate(date)}
-                    dateFormat="yyyy-MM-dd"
-                    locale={ko}
-                /> */}
+                <label style={{lineHeight: "35px", marginRight: 6}}>조회일자</label>
                 <SelectDate
                     selected={fromDate}
                     dateFormat="yyyy-MM-dd"
@@ -238,57 +230,6 @@ const CommonModal = ({options, modalClose}) => {
                 </div>
             </div>
         </div>
-        // <div className="modal-wrap">
-        //     {isLoading && <CircularProgress id="loadingCircular" color="secondary" sx={{position : 'absolute', top: '47%', left: '47%'}}/> }
-        //     <span className="close"></span>
-        //     {/* <!-- 팝업 타이틀 --> */}
-        //     <div className="modal-title">
-        //         수압상태 상세보기
-        //     </div>
-        //     {/* <!-- //팝업 타이틀 -->                                                              */}
-        //     {/* <!-- 본문 --> */}
-        //     <div className="modal-content">
-        //         {/* <!-- 검색영역 --> */}
-        //         <div className="search-wrap" style={{marginTop:0}}>
-        //             <label>조건조회</label>
-        //             <DatePicker
-        //                 selected={fromDate}
-        //                 onChange={(date) => setFromDate(date)}
-        //                 dateFormat="yyyy-MM-dd"
-        //                 locale={ko}
-        //             />
-        //             <DatePicker
-        //                 selected={toDate}
-        //                 onChange={(date) => setToDate(date)}
-        //                 dateFormat="yyyy-MM-dd"
-        //                 locale={ko}
-        //             />
-        //             <div className="btn-wrap">
-        //                 <button type="button" onClick={searchStatus} className="btn btn-primary">조회</button>
-        //             </div>
-        //         </div>
-        //         {/* <!-- //검색영역 --> */}
-        //         {/* <!-- 본문 --> */}
-        //         <div className="modal-content">
-        //             <div className="liveStateDiv">
-        //                 {/* <span>{options.location} 상태 현황</span> */}
-        //                 {
-        //                     options.title!=="유량"
-        //                     ? <CommonLiveStatusTable status={status} options={options}/>
-        //                     : <FlowLiveStatusTable status={flowStatus} options={options}/>
-        //                 }
-        //             </div>
-        //             <div className="searchStateDiv" style={{marginTop: 40}}>
-        //                 <span>{options.location} {options.title} 감시결과</span>
-        //                 {
-        //                     options.title!=="유량"
-        //                     ? <CommonSearchMonitorTable options={options} kind={kind} tableData={tableData}/>
-        //                     : <FlowSearchMonitorTable options={options} kind={kind} tableData={flowTableData}/>
-        //                 }
-        //             </div>
-        //         </div>
-        //     </div>    
-        // </div>
     )
 }
 

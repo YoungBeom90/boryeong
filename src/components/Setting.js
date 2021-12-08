@@ -17,7 +17,7 @@ import { initDepthSetData, initFlowSetData, initPressSetData } from './redux/val
 
 const Setting = (props) => {
 
-    const darkTheme = createTheme({ palette: { background: '#0090e3'} });
+    // const darkTheme = createTheme({ palette: { background: '#0090e3'} });
 
     const [cmmnStyle] = useState({
         tableHead: {

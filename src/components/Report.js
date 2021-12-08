@@ -1,7 +1,4 @@
 import React, {useState, useRef} from 'react';
-// import ReportHeader from './report/ReportHeader';
-// import {CSVLink, CSVDownload} from 'react-csv';
-// import ReportData from './report/ReportData';
 import SupplyTable from './report/table/SupplyTable';
 import { Container, Box, CircularProgress, Backdrop, Fab, Zoom, useScrollTrigger } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -15,10 +12,7 @@ import DatePicker from 'react-datepicker';
 import { ko } from 'date-fns/esm/locale';
 import axios from 'axios';
 import styled from "styled-components";
-// import html2canvas from 'html2canvas';
-// import jsPDF from 'jspdf';
 import { exportPDF, exportExcel } from './report/utils/exportFunction';
-import PropTypes from 'prop-types';
 import { props } from 'bluebird';
 
 const Report = () => { 
@@ -182,20 +176,7 @@ const Report = () => {
                             onChange={(date) => setSelectDate(date)}
                             placeholderText=""
                             locale={ko}
-                        />
-                        {/* <DatePicker
-                            className="search-input datepicker calendar-icon"
-                            selected={selectDate}
-                            onChange={(date) => setSelectDate(date)}
-                            dateFormat="yyyy-MM-dd"
-                            locale={ko}
-                        /> */}
-                        {/* <select style={{width: "240px", marginRight: "15px"}}>
-                            <option>일보</option>
-                            <option>일보</option>
-                        </select>
-                        <input className="search-input datepicker calendar-icon" type="" name="" style={{width: "240px"}} placeholder="일자선택" /> */}
-                        
+                        />                        
                         <div className="btn-wrap">
                             <button type="button" style={{marginRight: 3}} onClick={searchReportData} className="btn btn-primary">조회</button>
                             <button type="button" style={{marginRight: 3}} className="btn btn-primary">수정</button>

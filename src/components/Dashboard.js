@@ -6,9 +6,8 @@ import axios from 'axios';
 import PressAverage from './dashboard/PressAverage';
 import WaterDepth from './dashboard/WaterDepth';
 import FlowAndDepth from './dashboard/FlowAndDepth';
-import Footer from './layout/Footer';
 
-const Dashboard = (props) => { 
+const Dashboard = () => { 
 
     const [splyData, setSplyData] = useState({
         todaySupply : '',
@@ -89,7 +88,7 @@ const Dashboard = (props) => {
 
                 setCmmnData({
                     flow : status.flow,
-                    level : status.level
+                    depth : status.depth
                 })
             }
         });
@@ -135,7 +134,6 @@ const Dashboard = (props) => {
                     </ul>
                 </div>
             </div>
-            
         </div>
     );
 }

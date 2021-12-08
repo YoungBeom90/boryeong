@@ -3,6 +3,7 @@ import { Modal, Box } from '@mui/material';
 import StateDetail from './StateDetail';
 
 const FlowAndDepth = ({cmmnData, modalStyle}) => {
+    console.log(cmmnData);
 
     const detailOptions = {
         flowDetail : {
@@ -53,7 +54,7 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
                     <ul>
                         <li>
                             <div className="box-title">수심상태</div>
-                            <h2 className={cmmnData.level !== "정상" ? "abnormal" : "normal"}>{cmmnData.level !== '' ? cmmnData.level : ""}</h2>
+                            <h2 className={cmmnData.depth !== "정상" ? "abnormal" : "normal"}>{cmmnData.depth !== '' ? cmmnData.depth : ""}</h2>
                             <button id="depthDetail" className="detail-btn" onClick={modalOpen}>상세보기</button>
                         </li>
                     </ul>
@@ -70,44 +71,3 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
 }
 
 export default FlowAndDepth;
-
-// const Section = styled.div`
-//     width : 50%;
-//     height : 25%;
-//     position: absolute;
-//     top: 32%;
-//     right: 3%;
-//     border : 30px solid #c3ced6;
-//     border-radius : 50px 50px 50px;
-//     background-color : #FFF;
-// `
-
-// const Flow = styled.div`
-//     width: 16%;
-//     height: 30%;
-//     border : 1px solid #0090e3;
-//     position : absolute;
-//     top : 30%;
-//     left : -2%;
-//     margin : 2% 5%;
-    
-// `
-
-// const Level = styled.div`
-//     width: 16%;
-//     height: 30%;
-//     border : 1px solid #0090e3;
-//     position : absolute;
-//     top : 30%;
-//     right : -2%;
-//     margin : 2% 5%;
-// `
-
-// const Title = styled.h4`
-//     width: 80%;
-//     margin-top: -20px;
-//     margin-left: auto;
-//     margin-right: auto;
-//     color : #0090e3;
-//     background-color : #282c34;
-// `

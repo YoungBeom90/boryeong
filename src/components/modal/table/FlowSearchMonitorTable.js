@@ -61,9 +61,6 @@ const FlowSearchMonitorTable = ({ options, kind, tableData}) => {
 
     return (
         <div style={{width: "100%"}}>
-            {/* <div className="content-list">
-                <h2>{options.location}({options.direction}라인) {options.title} 감시 결과</h2>
-            </div>			 */}
             <div style={{display: "flow-root"}}>
                 <ul className="legend-info">
                     <li><span className="white"></span>정상</li>
