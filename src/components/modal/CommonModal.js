@@ -10,13 +10,14 @@ import { CircularProgress, Backdrop } from "@mui/material";
 import styled from "styled-components";
 
 const CommonModal = ({options, modalClose}) => {
-    
+    // 상단 상태현황 색상 효과
     const display = {
         normal: "#fff",
         warning: "#ffdf75",
         danger: "#ff7847",
     }
 
+    // 상태현황 타이틀 초기화
     const [status, setStatus] = useState({
         [options.title + 1] : '',
         [options.title + 2] : '',
@@ -30,6 +31,7 @@ const CommonModal = ({options, modalClose}) => {
         [options.title + 10] : '',        
     });
 
+    // 유량에 대한 타이틀 따로 초기화
     const [flowStatus, setFlowStatus] = useState({
         A : {
             [options.title + 1] : '',
@@ -38,35 +40,46 @@ const CommonModal = ({options, modalClose}) => {
             [options.title + 1] : '',
         }
     })
-
+    // 테이블 데이터
     const [tableData, setTableData] = useState([]);
+    // 유량테이블 데이터
     const [flowTableData, setFlowTableData] = useState({A: [], B : []});
+    // 조회 날짜 
     const [fromDate, setFromDate] = useState();
     const [toDate, setToDate] = useState();
-    // const [isLoading, setIsLoading] = useState(false);
+    // 로딩화면
     const [open, setOpen] = useState(false);
-
+    // 데이터의 key값을 가져오기 위한 key값 관리
     const [kind, setKind] = useState('');
 
     useEffect(() => {
-        if(options.title==="수압계") {
-            setKind("PRESS");
-        } else if(options.title==="밸브") {
-            setKind("VALVE");
-        } else if(options.title==="통신") {
-            setKind("TELE");
-        } else if(options.title==="유량") {
-            setKind("FLOW");
-        } else if(options.title==="수심") {
-            setKind("DEPTH");
+        // 타이틀에 따라 데이터에서 가져올 키값 명칭 맵핑
+        switch(options.title) {
+            case "수압계" :
+                setKind("PRESS");
+                break;
+            case "밸브" :
+                setKind("VALVE");
+                break;
+            case "통신" :
+                setKind("TELE");
+                break;
+            case "유량" :
+                setKind("FLOW");
+                break;
+            case "수심" :
+                setKind("DEPTH");
+                break;
         }
     })
     
+    // 테이터 검색
     const searchStatus = (e) => {
         e.preventDefault();
         
+        // 방향(보령 & 원산도)
         let direction = options.direction;
-
+        // 조회 시작일
         let fromYear,fromMonth,fromDay;
         if(fromDate) {
             fromYear = fromDate.getFullYear();
@@ -76,7 +89,8 @@ const CommonModal = ({options, modalClose}) => {
             alert("시작일을 입력해주세요.");
             return;
         }
-        
+
+        //조회 종료일
         let toYear,toMonth,toDay;
         if(toDate) {
             toYear = toDate.getFullYear();
@@ -89,11 +103,19 @@ const CommonModal = ({options, modalClose}) => {
             toDay = new Date().getDate();
         }
 
-        
+        //선택한 Modal이 FLOW 인지 확인 후 진행
         if(kind !== "FLOW") {
-            // setIsLoading(true);
+            
+            // FLOW 제외한 다른 공통 모달 검색
             setOpen(true);
-            axios.get(`/api/dashboard/popup?kind=${kind}&direction=${direction}&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`)
+            axios.get('/api/dashboard/popup', {
+                params : {
+                    kind: kind,
+                    direction: direction,
+                    fromDate: `${fromYear}-${fromMonth}-${fromDay}`,
+                    toDate: `${toYear}-${toMonth}-${toDay}`,
+                }
+            })
             .then(({data}) => {
                 
                 console.log(data.statusList);
@@ -119,14 +141,21 @@ const CommonModal = ({options, modalClose}) => {
                 alert("조회 요청 중 서버 문제가 발생했습니다.");
             })
             .finally(() => {
-                // setIsLoading(false);
                 setOpen(false);
             })
         } else {
-            // setIsLoading(true);
+            // FLOW에 대한 검색 
             setOpen(true);
+
             // 보령방향 FLOW
-            axios.get(`/api/dashboard/popup?kind=FLOW&direction=A&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`)
+            axios.get('/api/dashboard/popup', {
+                params: {
+                    kind: "FLOW",
+                    direction: "A",
+                    fromDate: `${fromYear}-${fromMonth}-${fromDay}`,
+                    toDate: `${toYear}-${toMonth}-${toDay}`
+                }
+            })
             .then(({data}) => {
                 let setTable = {A: [], B:[]}
                 let setTotal = {A: {}, B:{}};
@@ -138,11 +167,16 @@ const CommonModal = ({options, modalClose}) => {
                 keys.map((item, index) => {
                     setTotal.A[options.title + (index+1)] = display[data.totalStatus[kind + (index+1)]];
                 });
-
-                
                 
                 // 원산도 방향 FLOW
-                axios.get(`/api/dashboard/popup?kind=FLOW&direction=B&fromDate=${fromYear}-${fromMonth}-${fromDay}&toDate=${toYear}-${toMonth}-${toDay}`)
+                axios.get('/api/dashboard/popup', {
+                    params: {
+                        kind: "FLOW",
+                        direction: "B",
+                        fromDate: `${fromYear}-${fromMonth}-${fromDay}`,
+                        toDate: `${toYear}-${toMonth}-${toDay}`
+                    }
+                })
                 .then(({data}) => {
                     setTable.B = data.statusList;
                     setFlowTableData(setTable);
@@ -174,11 +208,7 @@ const CommonModal = ({options, modalClose}) => {
                 setOpen(false);
             })
         }
-
-        // console.log(status);
-               
-
-        
+                
     }
 
 
