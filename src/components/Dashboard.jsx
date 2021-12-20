@@ -41,7 +41,7 @@ const Dashboard = () => {
 
     const [cmmnData, setCmmnData] = useState({
         flow: '',
-        level: ''
+        depth: ''
     });
 
 

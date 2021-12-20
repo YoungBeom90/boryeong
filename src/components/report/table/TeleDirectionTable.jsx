@@ -1,6 +1,6 @@
 import React from "react";
 
-const TeleDirectionTable = () => {
+const TeleDirectionTable = ({data}) => {
     return (
         <table className="teleDirTb" style={{marginTop: "10px"}}>
             <thead>
@@ -23,16 +23,16 @@ const TeleDirectionTable = () => {
                 <tr>
                     <td rowSpan="3">A라인(보령방향)</td>
                     <td>전용회선</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>{data.A.전용회선.TELE1.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE2.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE3.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE4.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE5.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE6.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE7.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE8.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE9.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
+                    <td>{data.A.전용회선.TELE10.map((item, i, row) => (i+1 === row.length ? item : item + ", "))}</td>
                 </tr>
                 <tr>
                     <td>무선통신</td>

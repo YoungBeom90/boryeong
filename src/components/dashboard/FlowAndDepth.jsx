@@ -8,7 +8,7 @@ const FlowAndDepth = ({cmmnData, modalStyle}) => {
     const detailOptions = {
         flowDetail : {
             title : "유량",
-        }    ,
+        },
         depthDetail : {
             title: "수심",
         },

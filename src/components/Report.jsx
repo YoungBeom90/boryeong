@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import SupplyTable from './report/table/SupplyTable';
 import { Container, Box, CircularProgress, Backdrop, Fab, Zoom, useScrollTrigger } from '@mui/material';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
@@ -14,20 +14,33 @@ import axios from 'axios';
 import styled from "styled-components";
 import { exportPDF, exportExcel } from './report/utils/exportFunction';
 import { props } from 'bluebird';
+import {supplyMap, pressMap, depthMap, teleMap} from './report/dataMap/reportDataMap';
 
 const Report = () => { 
     const containerRef = useRef();
 
+    useEffect(() => {
+        // scollTop custom control
+        containerRef.current.addEventListener('scroll', function(){
+            // console.log(document.querySelector("#containerBox").scrollTop);
+            if (document.querySelector("#containerBox").scrollTop >= 100) {
+                document.querySelector("#scrollTopBtn").removeAttribute("style");
+            } else if (document.querySelector("#containerBox").scrollTop < 100) {
+                document.querySelector("#scrollTopBtn").setAttribute("style", "display: none;");
+            }
+        });
+    },[]);
+    
     const ScrollTop = (props) => {
         const { children, window } = props;
         // Note that you normally won't need to set the window ref as useScrollTrigger
         // will default to window.
         // This is only being set here because the demo is in an iframe.
-        const trigger = useScrollTrigger({
-          target: containerRef.current,
-          disableHysteresis: true,
-          threshold: 100,
-        });
+        // const trigger = useScrollTrigger({
+        //   target: containerRef.current,
+        //   disableHysteresis: true,
+        //   threshold: 100,
+        // });
       
         const handleClick = (event) => {
           const anchor = (event.target.ownerDocument || document).querySelector(
@@ -43,14 +56,15 @@ const Report = () => {
         };
       
         return (
-          <Zoom in={trigger}>
-            <Box
-              onClick={handleClick}
-              role="presentation"
-              sx={{ position: 'absolute', bottom: 16, right: "50%"}}
-            >
-              {children}
-            </Box>
+          <Zoom>
+                <Box
+                    id="scrollTopBtn"
+                    onClick={handleClick}
+                    role="presentation"
+                    sx={{ position: 'absolute', bottom: 16, right: "50%", margin: "10px"}}
+                >
+                {children}
+                </Box>
           </Zoom>
         );
     }
@@ -61,45 +75,19 @@ const Report = () => {
     const [selectDate, setSelectDate] = useState(new Date);
 
     // 공급량 현황
-    const [supplyData, setSupplyData] = useState({
-        id: '',
-        todayFlow : '',
-        beforeFlow : '',
-        beforeCompare : '',
-        avgFlow : '',
-        avgCompare : ''
-    });
+    const [supplyData, setSupplyData] = useState(supplyMap);
 
     // 밸브 현황
     const [valveData, setValveData] = useState({});
 
     // 수심 현황
-    const [depthData, setDepthData] = useState({
-        beforeMax : '',
-        beforeMin : '',
-        beforeAvg : '',
-        todayMax : '',
-        todayMin : '',
-        todayAvg : '',
-        compare : '',
-    });
+    const [depthData, setDepthData] = useState(depthMap);
 
     // 수압 현황
-    const [pressData, setPressData] = useState({
-        A : {
-            avg : {PRESS1: '', PRESS2: '', PRESS3: '', PRESS4: '', PRESS5: '', PRESS6: '', PRESS7: '', PRESS8: '', PRESS9: '', PRESS10: ''},
-            max : {PRESS1: '', PRESS2: '', PRESS3: '', PRESS4: '', PRESS5: '', PRESS6: '', PRESS7: '', PRESS8: '', PRESS9: '', PRESS10: ''},
-            min : {PRESS1: '', PRESS2: '', PRESS3: '', PRESS4: '', PRESS5: '', PRESS6: '', PRESS7: '', PRESS8: '', PRESS9: '', PRESS10: ''}
-        },
-        B : {
-            avg : {PRESS1: '', PRESS2: '', PRESS3: '', PRESS4: '', PRESS5: '', PRESS6: '', PRESS7: '', PRESS8: '', PRESS9: '', PRESS10: ''},
-            max : {PRESS1: '', PRESS2: '', PRESS3: '', PRESS4: '', PRESS5: '', PRESS6: '', PRESS7: '', PRESS8: '', PRESS9: '', PRESS10: ''},
-            min : {PRESS1: '', PRESS2: '', PRESS3: '', PRESS4: '', PRESS5: '', PRESS6: '', PRESS7: '', PRESS8: '', PRESS9: '', PRESS10: ''}
-        }
-    });
+    const [pressData, setPressData] = useState(pressMap);
 
     // 통신 현황
-    const [teleData, setTeleData] = useState({});
+    const [teleData, setTeleData] = useState(teleMap);
 
     // let date = new Date();
     let year = selectDate.getFullYear();
@@ -118,8 +106,13 @@ const Report = () => {
                 setSupplyData(data.result.supplyReport);
                 setPressData(data.result.pressReport);
                 setDepthData(data.result.depthReport);
+                setTeleData(data.result.teleReport);
             } else {
-                alert('데이터가 없습니다.');
+                alert('조회된 데이터가 없습니다.');
+                setSupplyData(supplyMap);
+                setPressData(pressMap);
+                setDepthData(depthMap);
+                setTeleData(teleMap);
             }
             // setIsLoading(false);
             setOpen(false);
@@ -152,6 +145,7 @@ const Report = () => {
             <Container fixed>
                 <Box
                     ref={containerRef}
+                    id="containerBox"
                     sx={{
                         p: 5,
                         ml: -6,
@@ -224,11 +218,11 @@ const Report = () => {
                         <TeleTable />
                         {/* <!-- //통신 -->				
                         <!-- 통신 방향 --> */}
-                        <TeleDirectionTable />
+                        <TeleDirectionTable data={teleData} />
                         {/* /* <!-- //통신 방향 --> */}
                     </div>
                 {/* <!-- 통신 현황 --> */}
-                <ScrollTop {...props}>
+                <ScrollTop id="scrollTopIco" {...props}>
                     <Fab color="secondary" size="small" aria-label="scroll back to top">
                         <KeyboardArrowUpIcon />
                     </Fab>
